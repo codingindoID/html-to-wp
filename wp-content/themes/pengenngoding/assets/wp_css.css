@@ -1,0 +1,241 @@
+.entry-title a {
+    color: black !important;
+    text-decoration: none;
+}
+
+.post-thumbnail {
+    max-width: 200px;
+    width: 100%;
+}
+
+#list-archive li {
+    list-style: none;
+    font-size: 12px;
+}
+
+#list-archive a {
+    color: black;
+}
+
+.list-group {
+    margin-left: 0;
+}
+
+.list-item-group a {
+    font-size: 12px;
+}
+
+#list-categories {
+    list-style: none !important;
+    margin-left: 0;
+}
+
+#list-categories a {
+    font-size: 12px;
+    color: black;
+}
+
+.categories {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.categories ul {
+    margin-left: 0;
+    padding: 0 0 0 15px;
+}
+
+.img-tumbnail {
+    height: auto;
+}
+
+.link-title {
+    text-decoration: none;
+    color: teal !important;
+}
+
+.link-title:hover {
+    text-decoration: none;
+    color: rgb(40, 82, 82);
+}
+
+.page-numbers {
+    color: teal;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+}
+
+.nav-links .current {
+    background-color: rgb(82, 153, 153);
+    font-weight: bold;
+    color: white;
+}
+
+/* KOMEN TEMPLATE*/
+#comments {
+    font-size: 12px !important;
+}
+
+#comments * {
+    margin-bottom: 0 !important;
+}
+
+#reply-title {
+    font-size: 15px;
+    color: teal;
+    margin-top: 2em;
+}
+
+#comment {
+    width: 100%;
+    border-radius: 10px;
+    border-color: darkgray;
+    padding: 1em;
+}
+
+.commentlist {
+    list-style: none;
+}
+
+.commentlist li {
+    margin-top: 2em;
+}
+
+.logged-in-as a {
+    color: black;
+}
+
+.required-field-message {
+    color: orange;
+}
+
+.fn a {
+    font-style: normal;
+    font-size: 18px;
+    color: orange;
+}
+
+.says {
+    color: slategrey;
+}
+
+.commentmetadata a {
+    color: slategray;
+    font-size: 12px;
+}
+
+.comment-body p {
+    padding: 8px;
+}
+
+.comment-reply-link {
+    background-color: cadetblue;
+    color: white;
+    padding: 5px;
+    border-radius: 10%;
+}
+
+.comment-form-comment label {
+    color: red;
+}
+
+.form-submit {
+    text-align: right;
+}
+
+#submit {
+    border: none;
+    background-color: cadetblue;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.comments-title {
+    font-size: 15px !important;
+    margin-bottom: 2em !important;
+    margin-top: 3em !important;
+}
+
+.comment-list {
+    padding-top: 15px;
+}
+
+.comments-title span {
+    color: orange;
+}
+
+.comment-form-author input {
+    width: 100% !important;
+}
+
+.comment-form-author span {
+    color: orange !important;
+}
+
+.comment-form-email input {
+    width: 100% !important;
+}
+
+.comment-form-email span {
+    color: orange !important;
+}
+
+.comment-form-url input {
+    width: 100% !important;
+}
+
+.comment-form-url span {
+    color: orange !important;
+}
+
+.comment-form-cookies-consent {
+    margin-top: 10px !important;
+}
+
+/* EDN KOMEN */
+
+/* woocommerce */
+.woocommerce {
+    background-color: white !important;
+    padding: 1.5rem !important;
+}
+
+.flex-viewport {
+    margin-bottom: 1em !important;
+}
+
+.flex-control-nav {
+    display: flex;
+    justify-content: center;
+}
+
+.quantity {
+    display: none;
+}
+
+.single_add_to_cart_button {
+    background-color: #28a745 !important;
+    color: white;
+}
+
+.products .product {
+    border: 1px solid thistle;
+    padding: 16px !important;
+}
+
+.product_type_external {
+    background-color: #28a745 !important;
+    color: white !important;
+    text-align: center !important;
+}
+
+.woocommerce-loop-product__title {
+    font-weight: bold;
+    color: #dc3545;
+}
+
+.entry-footer {
+    display: none;
+}

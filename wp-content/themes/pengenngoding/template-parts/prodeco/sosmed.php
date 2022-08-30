@@ -1,0 +1,1 @@
+<a class="btn btn-success p-2 text-white" id="icon-sosmed" target="__blank" href="https://api.whatsapp.com/send?phone=6282265169681"><i class="icofont-brand-whatsapp icofont-2x"></i></a>
