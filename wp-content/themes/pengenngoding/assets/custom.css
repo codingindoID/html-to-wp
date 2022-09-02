@@ -141,7 +141,7 @@
 .hero {
     position: relative;
     height: 350px;
-    background-image: url('../assets/img/room-2.JPG');
+    background-image: url('../assets/img/room-2.png');
     background-size: contain;
     /* background-color: rgb(248, 190, 135); */
 }

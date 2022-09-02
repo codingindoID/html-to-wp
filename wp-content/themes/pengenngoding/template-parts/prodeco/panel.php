@@ -37,7 +37,7 @@
 <section id="produk" class="p-5 text-center">
     <img src="<?= get_template_directory_uri() ?>/assets/img/logo-png.png" style="max-width: 100px ; width:100%">
     <h3 class="text-center m-0 font-weight-bold" data-aos="flip-left">#OTHER INTERIOR PANELS</h3>
-    <h6 class="mb-5 text-center">Film on the face is our advance technology, which is fire-proof, water-proof, esay to clean , scratch resistance , but the price is cheaper than HPL.</h6>
+    <h6 class="mb-5 text-center">Film on the face is our advance technology, which is fire-proof, water-proof, easy to clean , scratch resistance , but the price is cheaper than HPL.</h6>
     <!-- SLider -->
     <div class="row d-flex justify-content-center">
         <?php
@@ -48,7 +48,7 @@
 
         if ($product->have_posts()) :
             while ($product->have_posts()) : $product->the_post();
-                $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail');
+                $image = wp_get_attachment_image_src(get_post_thumbnail_id($product->the_ID()), 'single-post-thumbnail');
         ?>
                 <div class="col-md-3 align-middle p-1">
                     <div class="bg-white link">

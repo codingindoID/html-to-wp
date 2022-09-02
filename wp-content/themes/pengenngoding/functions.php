@@ -141,18 +141,18 @@ add_action('widgets_init', 'pengenngoding_widgets_init');
 /**
  * Enqueue scripts and styles.
  */
-function pengenngoding_scripts()
-{
-	wp_enqueue_style('pengenngoding-style', get_stylesheet_uri(), array(), _S_VERSION);
-	wp_style_add_data('pengenngoding-style', 'rtl', 'replace');
+// function pengenngoding_scripts()
+// {
+// 	wp_enqueue_style('pengenngoding-style', get_stylesheet_uri(), array(), _S_VERSION);
+// 	wp_style_add_data('pengenngoding-style', 'rtl', 'replace');
 
-	wp_enqueue_script('pengenngoding-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
+// 	wp_enqueue_script('pengenngoding-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 
-	if (is_singular() && comments_open() && get_option('thread_comments')) {
-		wp_enqueue_script('comment-reply');
-	}
-}
-add_action('wp_enqueue_scripts', 'pengenngoding_scripts');
+// 	if (is_singular() && comments_open() && get_option('thread_comments')) {
+// 		wp_enqueue_script('comment-reply');
+// 	}
+// }
+// add_action('wp_enqueue_scripts', 'pengenngoding_scripts');
 
 /**
  * Implement the Custom Header feature.
@@ -177,9 +177,9 @@ require get_template_directory() . '/inc/customizer.php';
 /**
  * Load Jetpack compatibility file.
  */
-if (defined('JETPACK__VERSION')) {
-	require get_template_directory() . '/inc/jetpack.php';
-}
+// if (defined('JETPACK__VERSION')) {
+// 	require get_template_directory() . '/inc/jetpack.php';
+// }
 
 function add_css()
 {
@@ -329,3 +329,5 @@ function company_post_type()
 	);
 }
 add_action('init', 'company_post_type');
+
+// add_filter('woocommerce_enqueue_styles', '__return_empty_array');

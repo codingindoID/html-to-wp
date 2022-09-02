@@ -12,11 +12,14 @@
                 <p class="img-product">Made of klin-dried quality fresh lumber, wood stripes are glue jointed into full size, with no gaps or holes or any foreign material in the core; Edge stripes are finger jointed; Crossband is only tropical hardwood peeled Veneer</p>
             </div>
             <div class="col-md-4">
-                <img src="<?= get_template_directory_uri() ?>/assets/img/layer.PNG" alt="layer" class="img-fluid img-product">
+                <img src="<?= get_template_directory_uri() ?>/assets/img/layer1.png" alt="layer" class="img-fluid img-product">
             </div>
         </div>
         <div class="row d-flex justify-content-end" data-aos="fade-left">
-            <div class="col-md-12 text-right">
+            <div class="col-md-4">
+                <img src="<?= get_template_directory_uri() ?>/assets/img/layer3.png" alt="layer" class="img-fluid img-product">
+            </div>
+            <div class="col-md-8 text-right">
                 <h1 class="f-200 m-0 img-product">02 <small class="font-weight-bold">MFP</small> </h1>
                 <h4 class="m-0 img-product"><small>Melamine Faced Plywood</small></h4>
                 <hr>
@@ -26,24 +29,27 @@
             </div>
         </div>
         <div class="row d-flex justify-content-start" data-aos="fade-right">
-            <div class="col-md-12 text-left">
+            <div class="col-md-8 text-left">
                 <h1 class="f-200 m-0 img-product">03 <small class="font-weight-bold">MFM</small> </h1>
                 <h4 class="m-0 img-product"><small>Melamine Faced MDF</small></h4>
                 <hr>
                 <p class="text-left img-product">Melamine-faced MDF provides a clean,white outward face to allow for a profesional finish. It can easily be used to replicate the look and feel of solid wood alternatives at a more affourdable price. Our melamine boards are made up of a clean white melamine veneer that is bonded to our standard MDF.</p>
             </div>
+            <div class="col-md-4">
+                <img src="<?= get_template_directory_uri() ?>/assets/img/layer2.png" alt="layer" class="img-fluid img-product">
+            </div>
 
         </div>
         <div class="row d-flex justify-content-end" data-aos="fade-right">
-            <div class="col-md-8 text-left">
+            <div class="col-md-4">
+                <img src="<?= get_template_directory_uri() ?>/assets/img/layer4.png" alt="layer" class="img-fluid img-product">
+            </div>
+            <div class="col-md-8 text-right">
                 <h1 class="f-200 m-0 img-product">04 <small class="font-weight-bold">MFC</small> </h1>
                 <h4 class="m-0 img-product"><small>Melamine Faced Chipboard</small></h4>
                 <hr>
                 <p class="text-left img-product">Melamine faced chipboard is commonly used due to its offordability and practicality, However, you may not be aware of what it made from , and what cheeper into these factors hereunder.</p>
                 <p class="img-product">melamine faced chipboard or MFC, is composite wood. It is made by combining machined wood chips together with a strong resin. Hence it is an enginered wood product. Melamine is a thermosetting plastic wich is applied to paper. this is the glued onto the chipboard , so that it achieves to the particleboard. This makes it more durable, and in some cases it is also water resistance. MCF comes in various types. including sizes, thicknesses and colours.</p>
-            </div>
-            <div class="col-md-4">
-                <img src="<?= get_template_directory_uri() ?>/assets/img/wood.JPG" alt="layer" class="img-fluid img-product">
             </div>
         </div>
     </div>

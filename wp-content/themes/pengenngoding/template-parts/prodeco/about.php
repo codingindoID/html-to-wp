@@ -17,7 +17,7 @@
                     <p class="text-justify m-0 fw-400 p-0 fs-12 img-product">MFM ( Melamine Faced MDF )</p>
                     <p class="text-justify m-0 fw-400 p-0 fs-12 img-product">MFC ( Melamine Faced Chipboard )</p>
                     <p class="text-justify m-0 fw-400 p-0 fs-12 img-product">For Fueniture decoration</p>
-                    <p class="fw-100 img-product">Film on the face is our advance technology, which is fire-proof, water-proof, esay to clean , scratch resistance , but the price is cheaper than HPL.</p>
+                    <p class="fw-100 img-product">Film on the face is our advance technology, which is fire-proof, water-proof, easy to clean , scratch resistance , but the price is cheaper than HPL.</p>
                 </div>
                 <div class="row p-3 about-row bg-tema" data-aos="flip-left">
                     <h1 class="m-0 img-product">02</h1>

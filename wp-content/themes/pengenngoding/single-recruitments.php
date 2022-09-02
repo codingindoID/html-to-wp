@@ -13,14 +13,11 @@ if (have_posts()) :
                     </div>
                     <div class="col bg-white p-3">
                         <h1 class="fw-500 text-tema-dark mb-0"><?php the_title(); ?></h1>
-                        <?php
-                        $cat = get_the_category();
-                        ?>
                         <hr>
                         <p class="mb-4"><?php the_content() ?></p>
                         <hr>
                         <p class="mb-0">Data Display : </p>
-                        <small>Created By : <span class="text-primary"><?php the_author() ?></span>, Categorie : <span class="text-primary"><?php echo $cat[0]->cat_name; ?></span></small>
+                        <small>Created By : <span class="text-primary"><?php the_author() ?></span></small>
                         <hr>
                         <div class="row">
                             <div class="col p-5">
