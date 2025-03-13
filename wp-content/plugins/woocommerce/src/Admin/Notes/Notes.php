@@ -5,6 +5,8 @@
 
 namespace Automattic\WooCommerce\Admin\Notes;
 
+use WC_Site_Tracking;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -24,6 +26,7 @@ class Notes {
 		add_action( 'admin_init', array( __CLASS__, 'schedule_unsnooze_notes' ) );
 		add_action( 'admin_init', array( __CLASS__, 'possibly_delete_survey_notes' ) );
 		add_action( 'update_option_woocommerce_show_marketplace_suggestions', array( __CLASS__, 'possibly_delete_marketing_notes' ), 10, 2 );
+		add_action( self::UNSNOOZE_HOOK, array( __CLASS__, 'unsnooze_notes' ) );
 	}
 
 	/**
@@ -39,7 +42,14 @@ class Notes {
 		$notes      = array();
 		foreach ( (array) $raw_notes as $raw_note ) {
 			try {
-				$note                               = new Note( $raw_note );
+				$note = new Note( $raw_note );
+				/**
+				 * Filter the note from db. This is used to modify the note before it is returned.
+				 *
+				 * @since 6.9.0
+				 * @param Note $note The note object from the database.
+				 */
+				$note                               = apply_filters( 'woocommerce_get_note_from_db', $note );
 				$note_id                            = $note->get_id();
 				$notes[ $note_id ]                  = $note->get_data();
 				$notes[ $note_id ]['name']          = $note->get_name( $context );
@@ -399,7 +409,6 @@ class Notes {
 		wp_set_current_user( $user_id );
 		self::record_tracks_event_without_cookies( $event_name, $params );
 		wp_set_current_user( $current_user_id );
-
 	}
 
 	/**
@@ -416,7 +425,7 @@ class Notes {
 		unset( $_COOKIE['tk_ai'] );
 		wc_admin_record_tracks_event( $event_name, $params );
 		if ( isset( $anon_id ) ) {
-			setcookie( 'tk_ai', $anon_id );
+			WC_Site_Tracking::set_tracking_cookie( 'tk_ai', $anon_id );
 		}
 	}
 

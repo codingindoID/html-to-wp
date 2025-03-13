@@ -3,12 +3,12 @@
         <div class="row mt-5">
             <div class="col-12 p-0 text-center mt-3" data-aos="flip-left">
                 <h1 class="text-tema img-product">ABOUT US</h1>
-                <p class="text-tema-dark img-product">We Have Started It Right Here. PT.PRODECO WOOD INDONESIA is established in 2021 at Jepara, Central Java , Indonesia. Under the brand of ewood. We have been trading internationally since 2006, and specialized in the international trade of building materials. </p>
+                <p class="text-tema-dark-super img-product">We Have Started It Right Here. PT.PRODECO WOOD INDONESIA is established in 2021 at Jepara, Central Java , Indonesia. Under the brand of ewood. We have been trading internationally since 2006, and specialized in the international trade of building materials. </p>
             </div>
         </div>
         <div class="row d-flex justify-content-center">
             <div class="col-xs-12 col-md-4">
-                <div class="row p-3 about-row bg-tema-orange" data-aos="flip-left">
+                <div class="row p-3 about-row bg-tema-light" data-aos="flip-left">
                     <h1 class="m-0 img-product">01</h1>
                     <h4 class="p-2 img-product">What we do</h4>
                     <p class="text-justify m-0 fw-400 p-0 fs-12 img-product">Produce Wood specially produce</p>

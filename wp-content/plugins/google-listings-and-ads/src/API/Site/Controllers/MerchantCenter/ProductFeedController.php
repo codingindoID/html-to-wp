@@ -59,7 +59,7 @@ class ProductFeedController extends BaseController {
 	 * @return callable
 	 */
 	protected function get_product_feed_read_callback(): callable {
-		return function( Request $request ) {
+		return function ( Request $request ) {
 			try {
 				return [
 					'products' => $this->query_helper->get( $request ),
@@ -87,27 +87,37 @@ class ProductFeedController extends BaseController {
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
-						'id'      => [
+						'id'        => [
 							'type'        => 'numeric',
 							'description' => __( 'Product ID.', 'google-listings-and-ads' ),
 							'context'     => [ 'view' ],
 						],
-						'title'   => [
+						'title'     => [
 							'type'        => 'string',
 							'description' => __( 'Product title.', 'google-listings-and-ads' ),
 							'context'     => [ 'view' ],
 						],
-						'visible' => [
+						'visible'   => [
 							'type'        => 'boolean',
 							'description' => __( 'Whether the product is set to be visible in the Merchant Center', 'google-listings-and-ads' ),
 							'context'     => [ 'view' ],
 						],
-						'status'  => [
+						'status'    => [
 							'type'        => 'string',
 							'description' => __( 'The current sync status of the product.', 'google-listings-and-ads' ),
 							'context'     => [ 'view' ],
 						],
-						'errors'  => [
+						'image_url' => [
+							'type'        => 'string',
+							'description' => __( 'The image url of the product.', 'google-listings-and-ads' ),
+							'context'     => [ 'view' ],
+						],
+						'price'     => [
+							'type'        => 'string',
+							'description' => __( 'The price of the product.', 'google-listings-and-ads' ),
+							'context'     => [ 'view' ],
+						],
+						'errors'    => [
 							'type'        => 'array',
 							'description' => __( 'Errors preventing the product from being synced to the Merchant Center.', 'google-listings-and-ads' ),
 							'context'     => [ 'view' ],

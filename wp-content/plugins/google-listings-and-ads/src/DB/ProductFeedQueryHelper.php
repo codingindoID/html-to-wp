@@ -7,6 +7,7 @@ use Automattic\WooCommerce\GoogleListingsAndAds\Exception\InvalidValue;
 use Automattic\WooCommerce\GoogleListingsAndAds\Infrastructure\Service;
 use Automattic\WooCommerce\GoogleListingsAndAds\Internal\ContainerAwareTrait;
 use Automattic\WooCommerce\GoogleListingsAndAds\Internal\Interfaces\ContainerAwareInterface;
+use Automattic\WooCommerce\GoogleListingsAndAds\MerchantCenter\MerchantCenterService;
 use Automattic\WooCommerce\GoogleListingsAndAds\MerchantCenter\MerchantStatuses;
 use Automattic\WooCommerce\GoogleListingsAndAds\PluginHelper;
 use Automattic\WooCommerce\GoogleListingsAndAds\Product\ProductHelper;
@@ -24,6 +25,7 @@ defined( 'ABSPATH' ) || exit;
  * Class ProductFeedQueryHelper
  *
  * ContainerAware used to access:
+ * - MerchantCenterService
  * - MerchantStatuses
  * - ProductHelper
  *
@@ -50,6 +52,11 @@ class ProductFeedQueryHelper implements ContainerAwareInterface, Service {
 	protected $product_repository;
 
 	/**
+	 * Meta key for total sales.
+	 */
+	protected const META_KEY_TOTAL_SALES = 'total_sales';
+
+	/**
 	 * ProductFeedQueryHelper constructor.
 	 *
 	 * @param wpdb              $wpdb
@@ -71,12 +78,16 @@ class ProductFeedQueryHelper implements ContainerAwareInterface, Service {
 	 * @throws Exception If the status data can't be retrieved from Google.
 	 */
 	public function get( WP_REST_Request $request ): array {
-		$this->request          = $request;
-		$products               = [];
-		$args                   = $this->prepare_query_args();
-		list( $limit, $offset ) = $this->prepare_query_pagination();
+		$this->request           = $request;
+		$products                = [];
+		$args                    = $this->prepare_query_args();
+		$refresh_status_data_job = null;
+		list( $limit, $offset )  = $this->prepare_query_pagination();
 
-		$this->container->get( MerchantStatuses::class )->maybe_refresh_status_data();
+		$mc_service = $this->container->get( MerchantCenterService::class );
+		if ( $mc_service->is_connected() ) {
+			$refresh_status_data_job = $this->container->get( MerchantStatuses::class )->maybe_refresh_status_data();
+		}
 
 		/** @var ProductHelper $product_helper */
 		$product_helper = $this->container->get( ProductHelper::class );
@@ -84,15 +95,23 @@ class ProductFeedQueryHelper implements ContainerAwareInterface, Service {
 		add_filter( 'posts_where', [ $this, 'title_filter' ], 10, 2 );
 
 		foreach ( $this->product_repository->find( $args, $limit, $offset ) as $product ) {
-			$id     = $product->get_id();
-			$errors = $product_helper->get_validation_errors( $product );
+			$id        = $product->get_id();
+			$errors    = $product_helper->get_validation_errors( $product );
+			$mc_status = $product_helper->get_mc_status( $product ) ?: $product_helper->get_sync_status( $product );
+
+			// If the refresh_status_data_job is scheduled, we don't know the status yet as it is being refreshed.
+			if ( $refresh_status_data_job && $refresh_status_data_job->is_scheduled() ) {
+				$mc_status = null;
+			}
 
 			$products[ $id ] = [
-				'id'      => $id,
-				'title'   => $product->get_name(),
-				'visible' => $product_helper->get_channel_visibility( $product ) !== ChannelVisibility::DONT_SYNC_AND_SHOW,
-				'status'  => $product_helper->get_mc_status( $product ) ?: $product_helper->get_sync_status( $product ),
-				'errors'  => array_values( $errors ),
+				'id'        => $id,
+				'title'     => $product->get_name(),
+				'visible'   => $product_helper->get_channel_visibility( $product ) !== ChannelVisibility::DONT_SYNC_AND_SHOW,
+				'status'    => $mc_status,
+				'image_url' => wp_get_attachment_image_url( $product->get_image_id(), 'full' ),
+				'price'     => $product->get_price(),
+				'errors'    => array_values( $errors ),
 			];
 		}
 
@@ -165,8 +184,12 @@ class ProductFeedQueryHelper implements ContainerAwareInterface, Service {
 				$args['meta_key'] = $this->prefix_meta_key( ProductMetaHandler::KEY_MC_STATUS );
 				$args['orderby']  = [ 'meta_value' => $this->get_order() ] + $args['orderby'];
 				break;
+			case 'total_sales':
+				$args['meta_key'] = self::META_KEY_TOTAL_SALES;
+				$args['orderby']  = [ 'meta_value_num' => $this->get_order() ] + $args['orderby'];
+				break;
 			default:
-				throw InvalidValue::not_in_allowed_list( 'orderby', [ 'title', 'id', 'visible', 'status' ] );
+				throw InvalidValue::not_in_allowed_list( 'orderby', [ 'title', 'id', 'visible', 'status', 'total_sales' ] );
 		}
 
 		return $args;
@@ -216,4 +239,3 @@ class ProductFeedQueryHelper implements ContainerAwareInterface, Service {
 		return strtoupper( $this->request['order'] ?? '' ) === 'DESC' ? 'DESC' : 'ASC';
 	}
 }
-

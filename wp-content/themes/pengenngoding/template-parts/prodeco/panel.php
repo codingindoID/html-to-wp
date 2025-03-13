@@ -35,7 +35,7 @@
 </style>
 
 <section id="produk" class="p-5 text-center">
-    <img src="<?= get_template_directory_uri() ?>/assets/img/logo-png.png" style="max-width: 100px ; width:100%">
+    <img src="<?= get_template_directory_uri() ?>/assets/img/logo.PNG" style="max-width: 100px ; width:100%">
     <h3 class="text-center m-0 font-weight-bold" data-aos="flip-left">#OTHER INTERIOR PANELS</h3>
     <h6 class="mb-5 text-center">Film on the face is our advance technology, which is fire-proof, water-proof, easy to clean , scratch resistance , but the price is cheaper than HPL.</h6>
     <!-- SLider -->
@@ -52,7 +52,7 @@
         ?>
                 <div class="col-md-3 align-middle p-1">
                     <div class="bg-white link">
-                        <img src="<?= $image[0] ?>" alt="Avatar" class="image-product">
+                        <div style="background-image: url('<?= $image[0] ?>');height: 250px; width: 100%;background-repeat: no-repeat;background-size: cover;"></div>
                         <div class="overlay">
                             <div class="text">
                                 <h3 class="text-tema-dark font-weight-bold"><?= the_title() ?></h3>

@@ -3,18 +3,18 @@
 /**
  * Plugin Name: Disable Bloat for WordPress & WooCommerce
  * Plugin URI: https://disablebloat.com/
- * Description: All-in-One solution to speed up your WordPress & WooCommerce site. Remove unnecessary features and make your site faster and cleaner.
- * Version: 3.0.3
+ * Description: All-in-One solution to speed up your WordPress & WooCommerce. Remove unnecessary features and make your site faster and cleaner.
+ * Version: 3.5.0
  * Author: Disable Bloat
  * Developer: Disable Bloat
  * Author URI: https://disablebloat.com/
  * Text Domain: disable-dashboard-for-woocommerce
  * Domain Path: /languages
  * Requires at least: 4.5
- * Tested up to: 6.0
+ * Tested up to: 6.7.1
  * Requires PHP: 5.6
  * WC requires at least: 4.0
- * WC tested up to: 6.6
+ * WC tested up to: 8.7
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -26,7 +26,9 @@ if ( function_exists( 'wcbloat_fs' ) ) {
     wcbloat_fs()->set_basename( false, __FILE__ );
 } else {
     // DO NOT REMOVE THIS IF, IT IS ESSENTIAL FOR THE `function_exists` CALL ABOVE TO PROPERLY WORK.
+    
     if ( !function_exists( 'wcbloat_fs' ) ) {
+        // Actual Freemius integration snippet
         
         if ( !function_exists( 'wcbloat_fs' ) ) {
             // Create a helper function for easy SDK access.
@@ -54,6 +56,7 @@ if ( function_exists( 'wcbloat_fs' ) ) {
                         'menu'           => array(
                         'contact' => false,
                         'support' => false,
+                        'account' => false,
                         'pricing' => false,
                     ),
                         'pricing'        => false,
@@ -70,143 +73,94 @@ if ( function_exists( 'wcbloat_fs' ) ) {
             // Signal that SDK was initiated.
             do_action( 'wcbloat_fs_loaded' );
         }
-    
-    }
-    if ( function_exists( 'fs_override_i18n' ) ) {
-        fs_override_i18n( array(
-            'opt-in' => __( '', 'disable-dashboard-for-woocommerce' ),
-        ), 'disable-dashboard-for-woocommerce' );
-    }
-    // Freemius END
-    // Check if WooCommerce is active
-    function wcbloat_woo_not_activated()
-    {
-        ?>
-    <div class="notice notice-error is-dismissible">
-        <p><?php 
-        _e( '<strong>Disable Bloat for WordPress & WooCommerce</strong> requires WooCommerce to be installed and activated.', 'disable-dashboard-for-woocommerce' );
-        ?></p>
-    </div>
-    <?php 
-    }
-    
-    $wcbloat_plugin = 'woocommerce/woocommerce.php';
-    
-    if ( !in_array( $wcbloat_plugin, apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ) ) && !(is_multisite() && array_key_exists( $wcbloat_plugin, get_site_option( 'active_sitewide_plugins', array() ) )) ) {
-        add_action( 'admin_notices', 'wcbloat_woo_not_activated' );
-        return;
-    }
-    
-    /**
-     * WooCommerce version.
-     */
-    $wc_version = ( function_exists( 'wc_version' ) ? wc_version() : null );
-    if ( $wc_version === null && defined( 'WC_VERSION' ) ) {
-        $wc_version = WC_VERSION;
-    }
-    if ( !class_exists( 'Disable_WC_Bloat' ) ) {
-        final class Disable_WC_Bloat
+        
+        if ( function_exists( 'fs_override_i18n' ) ) {
+            fs_override_i18n( array(
+                'opt-in' => __( '', 'disable-dashboard-for-woocommerce' ),
+            ), 'disable-dashboard-for-woocommerce' );
+        }
+        wcbloat_fs()->add_filter( 'default_to_anonymous_feedback', '__return_true' );
+        wcbloat_fs()->add_filter( 'hide_freemius_powered_by', '__return_true' );
+        wcbloat_fs()->add_filter( 'hide_billing_and_payments_info', '__return_true' );
+        function wcbloat_custom_pricing_url( $pricing_url )
         {
-            public  $version = '3.0.0' ;
-            protected static  $_instance = null ;
-            public static function instance()
-            {
-                if ( is_null( self::$_instance ) ) {
-                    self::$_instance = new self();
-                }
-                return self::$_instance;
+            $pricing_url = 'https://disablebloat.com/?utm_source=plugins_list&utm_medium=referral&utm_campaign=Plugin+links';
+            return $pricing_url;
+        }
+        
+        wcbloat_fs()->add_filter( 'pricing_url', 'wcbloat_custom_pricing_url' );
+        wcbloat_fs()->add_filter( 'checkout_url', 'wcbloat_custom_pricing_url' );
+        // Opt-In Icon Customization
+        function wcbloat_custom_plugin_icon()
+        {
+            return dirname( __FILE__ ) . '/assets/img/disable-dashboard-for-woocommerce.png';
+        }
+        
+        wcbloat_fs()->add_filter( 'plugin_icon', 'wcbloat_custom_plugin_icon' );
+        wcbloat_fs()->add_filter( 'show_deactivation_feedback_form', '__return_false' );
+        wcbloat_fs()->override_i18n( array(
+            'woot'    => __( 'Done' ),
+            'yee-haw' => __( 'Done' ),
+        ) );
+        // Freemius END
+        // load plugin text domain
+        function wcbloat_init()
+        {
+            load_plugin_textdomain( 'disable-dashboard-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+        }
+        
+        add_action( 'plugins_loaded', 'wcbloat_init' );
+        // Links on Plugins screen
+        function wcbloat_action_links( $links )
+        {
+            $custom_links = [ '<a href="' . admin_url( 'options-general.php?page=disable-bloat' ) . '">' . __( 'Settings' ) . '</a>' ];
+            if ( !wcbloat_fs()->is_premium() ) {
+                $custom_links[] = '<a href="https://disablebloat.com/?utm_source=plugins_list&utm_medium=referral&utm_campaign=Plugin+links" target="_blank"><b>' . __( 'Upgrade', 'disable-dashboard-for-woocommerce' ) . '</b></a>';
             }
-            
-            function __construct()
-            {
-                // Set up localisation
-                load_plugin_textdomain( 'disable-dashboard-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-                // Include required files
-                $this->includes();
-                // Admin
-                if ( is_admin() ) {
-                    $this->admin();
-                }
+            if ( wcbloat_fs()->is_plan( 'pro' ) ) {
+                $custom_links[] = sprintf( '<a href="%1$s">%2$s</a>', esc_url( wcbloat_fs()->get_account_url() ), __( 'My Account', 'disable-dashboard-for-woocommerce' ) );
             }
+            return array_merge( $custom_links, $links );
+        }
+        
+        add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wcbloat_action_links' );
+    }
+    
+    // Add CSS and JS to the plugin settings screens
+    function wcbloat_custom_wp_admin_assets()
+    {
+        
+        if ( function_exists( 'get_current_screen' ) ) {
+            $screen = get_current_screen();
             
-            function action_links( $links )
-            {
-                $custom_links = array();
-                $custom_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=wc_bloat' ) . '">' . __( 'Settings', 'woocommerce' ) . '</a>';
-                if ( !wcbloat_fs()->is_premium() ) {
-                    $custom_links[] = '<a href="https://disablebloat.com/?utm_source=plugins_list&utm_medium=referral&utm_campaign=Plugin+links" target="_blank"><b>' . __( 'Upgrade', 'disable-dashboard-for-woocommerce' ) . '</b></a>';
-                }
-                
-                if ( wcbloat_fs()->is_plan( 'pro' ) ) {
-                    $wcbloat_account_url = wcbloat_fs()->get_account_url();
-                    $custom_links[] = '<a href="' . $wcbloat_account_url . '">' . __( 'My Account', 'disable-dashboard-for-woocommerce' ) . '</a>';
-                }
-                
-                return array_merge( $custom_links, $links );
-            }
-            
-            /**
-             * Include core files
-             */
-            function includes()
-            {
-                $this->core = (require_once 'includes/class-disable-bloat-core.php');
-                $this->core = (require_once 'includes/functions/disable-bloat-functions_free.php');
-            }
-            
-            function admin()
-            {
-                add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
-                // Settings
-                add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ) );
-                require_once 'includes/settings/class-disable-bloat-settings-section.php';
-                $this->settings = array();
-                $this->settings['general'] = (require_once 'includes/settings/class-disable-bloat-settings-main.php');
-                require_once 'includes/settings/class-disable-bloat-settings-admin.php';
-                $this->settings['admin'] = new Disable_WC_Bloat_Settings_Admin( 1 );
-                require_once 'includes/settings/class-disable-bloat-settings-performance.php';
-                $this->settings['performance'] = new Disable_WC_Bloat_Settings_Site_Performance( 1 );
-                require_once 'includes/settings/class-disable-bloat-settings-wpcore.php';
-                $this->settings['core'] = new Disable_WC_Bloat_Settings_Core( 1 );
-                require_once 'includes/settings/class-disable-bloat-settings-block.php';
-                $this->settings['block'] = new Disable_WC_Bloat_Settings_Block_Editor( 1 );
-                require_once 'includes/settings/class-disable-bloat-settings-thirdparty.php';
-                $this->settings['thirdparty'] = new Disable_WC_Bloat_Settings_Thirdparty( 1 );
-            }
-            
-            /**
-             * Add settings tab to WooCommerce settings.
-             */
-            function add_woocommerce_settings_tab( $settings )
-            {
-                $settings[] = (require_once 'includes/settings/class-disable-bloat-settings.php');
-                return $settings;
+            if ( $screen && $screen->base === 'settings_page_disable-bloat' ) {
+                wp_enqueue_style( 'wcbloat_wp_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/disable-bloat-admin-style.css' );
+                wp_enqueue_script( 'wcbloat_wp_admin_js', plugin_dir_url( __FILE__ ) . 'assets/js/disable-bloat-admin-settings.js' );
             }
         
         }
-    }
-    if ( !function_exists( 'disable_woocommerce_bloat' ) ) {
-        /**
-         * Returns the main instance of Disable_WC_Bloat to prevent the need to use globals.
-         */
-        function disable_woocommerce_bloat()
-        {
-            return Disable_WC_Bloat::instance();
-        }
-    
-    }
-    disable_woocommerce_bloat();
-    // Add CSS stylesheet file to the plugin Settings page
-    function wcbloat_custom_wp_admin_style()
-    {
-        $url = '//' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-        
-        if ( strpos( $url, 'tab=wc_bloat' ) !== false ) {
-            wp_register_style( 'wcbloat_wp_admin_css', plugin_dir_url( __FILE__ ) . 'assets/css/disable-bloat-admin-style.css' );
-            wp_enqueue_style( 'wcbloat_wp_admin_css' );
-        }
     
     }
     
-    add_action( 'admin_enqueue_scripts', 'wcbloat_custom_wp_admin_style' );
+    add_action( 'admin_enqueue_scripts', 'wcbloat_custom_wp_admin_assets' );
+    // Include WooCommerce integration
+    require_once 'includes/functions/disable-bloat-woocommerce.php';
+    // Include functions files
+    require_once 'includes/functions/disable-bloat-functions_free.php';
+    // Include Options pages
+    require_once 'includes/settings/class-disable-bloat-settings.php';
+    // Include a list of database fields for export / batch delete
+    require_once 'includes/functions/disable-bloat-option-names.php';
+    // Include Uninstall Cleanup code
+    require_once 'includes/functions/disable-bloat-uninstall-cleanup.php';
+    // Compatibility with WooCommerce HPOS (Custom order tables) - only if WooCommmerce is active
+    if ( wcbloat_is_woo_active() ) {
+        add_action( 'before_woocommerce_init', function () {
+            if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+                \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+            }
+        } );
+    }
+    // MAIN PLUGIN FILE END
+    // DO NOT REMOVE THE BRACKET BELOW, AS IT IS NEEDED FOR THE MECHANISM OF AUTO DEACTIVATING THE FREE VERSION DURING PRO ACTIVATION:
 }

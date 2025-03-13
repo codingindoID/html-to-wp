@@ -5,7 +5,7 @@
 
 namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\DataBase\Migrations\CustomOrderTable\CLIRunner;
+use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\CLIRunner;
 use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
 use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
 
@@ -35,5 +35,6 @@ class COTMigrationServiceProvider extends AbstractServiceProvider {
 	 */
 	public function register() {
 		$this->share( PostsToOrdersMigrationController::class );
+		$this->share( CLIRunner::class );
 	}
 }

@@ -33,7 +33,7 @@ endif;
 
 	<?php
 	if ($data) {
-		$text = '<a class="text-tema-orange" href="' . get_permalink() . '"> [ ..Read More]</a>';
+		$text = '<a class="text-tema-dark" href="' . get_permalink() . '"> [ ..Read More]</a>';
 		echo wp_trim_words(get_the_content(), 20, $text);
 	} else {
 		the_content(

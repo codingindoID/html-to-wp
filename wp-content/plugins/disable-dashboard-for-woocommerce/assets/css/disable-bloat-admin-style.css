@@ -1,74 +1,72 @@
-/*
-Hide sticky sidebard
-
-.woocommerce table.form-table,
-.woocommerce h1,
-.woocommerce h2,
-.woocommerce h3,
-.woocommerce h4,
-.woocommerce h5,
-.woocommerce h6,
-.woocommerce p {
-    display: block;
-    width: 75%;
-    /* float: left; */ /*
+div.disable-bloat-container {
+    line-height: 1.7;
 }
 
-.form-table {
-    clear: none;
+.form-table td p {
+    margin: 10px 0;
+    color: #646970;
 }
-
-.wcbloat_settings_tab_sidebar {
-    display: block;
-    width: 22%;
-    margin-left: 2%;
-    float: right;
-	position: sticky;
-	top: 50px;
-}
-
-#message p {
-    display: block;
-    width: 100%;
-    float: none;
-}
-
-.wcbloat_settings_tab_sidebar_item {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.wcbloat_settings_tab_sidebar_item p {
-    display: block;
-    width: 100%;
-    float: none;
-}
-*/
 
 p#footer-left {
-	display: none !important;
+    display: none !important;
 }
 
-#-description > p > span.dashicons {
-	color: #404040;
-	font-size: 70px;
-	margin-bottom: 35px;
+p#footer-upgrade {
+    display: none !important;
+}
+
+span.dashicons {
+    color: #404040;
+    font-size: 70px;
+    margin-top: 15px;
+    margin-bottom: 50px;
 }
 
 .wcbloat-pro-label {
     font-size: 10px;
-	font-weight: bold;
+    font-weight: bold;
     color: #ffffff;
     text-align: center;
     line-height: 1;
     border-radius: 2px;
     background-color: #0073b2;
-	margin: 4px;
-	padding-left: 2px;
-	display: inline-block;
-	padding-right: 2px;
-	padding-bottom: 2px;
-	vertical-align: top;
-	padding-top: 2px;
-	margin-top: 3px;
+    margin: 4px;
+    padding-left: 2px;
+    display: inline-block;
+    padding-right: 2px;
+    padding-bottom: 2px;
+    vertical-align: top;
+    padding-top: 2px;
+    margin-top: 3px;
+}
+
+p.wcbloat-bar {
+    padding: 10px;
+    background-color: white;
+    max-width: 700px;
+}
+
+td.wcbloat-wp-widgets-disable-multi-checkbox {
+    padding: 5px 120px 5px 5px !important;
+}
+
+td.wcbloat-disable-sidebar-widgets-multi-checkbox {
+    padding: 5px 50px 5px 5px !important;
+}
+
+td.wcbloat-admin-disable-features-multi-checkbox {
+    padding: 5px 50px 5px 5px !important;
+}
+
+div.wcbloat-select-unselect-buttons {
+    margin: 5px 5px 10px 5px;
+    user-select: none;
+}
+
+div.wcbloat-wcadmin-radio {
+    line-height: 1.7;
+}
+
+div.import-export {
+    width: 65%;
 }

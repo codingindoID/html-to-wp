@@ -7,8 +7,8 @@
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center">
 				<div class="btn-group" role="group" aria-label="Basic example">
-					<button class="btn btn-light text-tema-dark" onclick="window.open('tel:6281298434924')"><i class="icofont-phone-circle"></i> Call</button>
-					<button type="button" class="btn btn-tema" onclick="window.open('https://api.whatsapp.com/send?phone=6282265169681')"><i class="icofont-brand-whatsapp"></i> whatsapp Sales</button>
+					<button class="btn btn-light text-tema-dark" onclick="window.open('tel:6282135385358')"><i class="icofont-phone-circle"></i> Call</button>
+					<button type="button" class="btn btn-success" onclick="window.open('https://api.whatsapp.com/send?phone=6282265169681')"><i class="icofont-brand-whatsapp"></i> whatsapp Sales</button>
 				</div>
 			</div>
 		</div>
@@ -35,19 +35,19 @@
 			<h6 class="t-foot-2">PT.PRODECO WOOD INDONESIA</h6>
 			<p class="p-foot-2">BAWU RT 041 RW 08 BAWU BATEALIT JEPARA CENTRAL JAVA INDONESIA 59461</p>
 			<p class="m-0">
-				<i class="icofont-phone-circle"></i> : Mr. Aliwi +62 822 6516 9681
+				<i class="icofont-phone"></i> +62 821 3538 5358
 			</p>
 			<p class="m-0">
-				<i class="icofont-phone-circle"></i> : Mr. Li +62 821 3471 9610
+				<i class="icofont-ui-email"></i> prodecowoodindonesia@gmail.com
 			</p>
 			<p class="m-0">
-				<i class="icofont-phone-circle"></i> : Ms. Sefi +62 812 984 34 924
+				<b>From More Information : </b>
 			</p>
 			<p class="m-0">
-				<i class="icofont-instagram"></i> @melamine_paper
+				<i class="icofont-phone-circle"></i> : Aliwi Zhu +62 822 6516 9681
 			</p>
 			<p class="m-0">
-				<i class="icofont-ui-email"></i> prodecowood@gmail.com
+				<i class="icofont-phone-circle"></i> : Afrilia Damara +62 895 3331 24596
 			</p>
 		</div>
 	</div>

@@ -18,7 +18,7 @@ get_header();
 			<?php get_template_part('template-parts/prodeco/sidebar'); ?>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-			<div class="card card-header mb-1" style="background-color: #a07465;color: white;">
+			<div class="card card-header mb-1 bg-tema-dark">
 				<?php
 				the_archive_title('<h1 class="page-title mb-0  text-center">', '</h1>'); ?>
 				<small class="text-center">PT.PRODECO INDONESIA</small>

@@ -10,8 +10,8 @@ get_header();
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
 			<?php if (have_posts()) : ?>
-				<div class="card card-header mb-1 text-center" style="background-color: #a07465;color: white;">
-					<h1 class="page-title mb-0"><i class="icofont-newspaper"></i> BLOG ARTICLE</h5>
+				<div class="card card-header mb-1 text-center bg-tema-dark">
+					<h1 class="page-title mb-0"><i class="icofont-newspaper"></i> UPDATE ARTICLE</h5>
 						<small class="fs-10">PT.PRODECO INDONESIA</small>
 				</div>
 				<div class="row mb-2">
