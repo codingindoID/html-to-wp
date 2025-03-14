@@ -330,4 +330,12 @@ function company_post_type()
 }
 add_action('init', 'company_post_type');
 
+function weplugins_modify_big_image_size_threshold_defaults($threshold, $imagesize, $file, $attachment_id)
+{
+	// Update the $threshold variable according to your website requirements and return this variable.
+	return $threshold;
+}
+// add the filter
+add_filter('big_image_size_threshold', 'weplugins_modify_big_image_size_threshold_defaults', 10, 4);
+
 // add_filter('woocommerce_enqueue_styles', '__return_empty_array');
